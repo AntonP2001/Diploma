@@ -5,8 +5,45 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:DiplomaApp"
         mc:Ignorable="d"
-        Title="MainWindow" Height="450" Width="800">
+        Title="Авторизация" Height="320" Width="300">
+    <Window.Resources>
+        <Style TargetType="Label">
+            <Setter Property="FontSize" Value="15"></Setter>
+        </Style>
+        <Style x:Key="LabelStyle">
+            <Setter Property="Label.HorizontalAlignment" Value="Right"></Setter>
+            <Setter Property="Label.FontSize" Value="15"></Setter> 
+        </Style>
+        <Style x:Key="TextBoxStyle">
+            <Setter Property="Button.Margin" Value="5"></Setter>
+            <Setter Property="Button.HorizontalAlignment" Value="Left"></Setter>
+            <Setter Property="Button.Width" Value="150"></Setter>
+        </Style>
+    </Window.Resources>
     <Grid>
-        
+        <Label Margin="0 5 0 0" FontWeight="Bold" FontSize="18" HorizontalAlignment="Center">Войти в систему</Label>
+        <StackPanel Width="280" Height="150" Margin="0 0 0 20">
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="90"></ColumnDefinition>
+                    <ColumnDefinition></ColumnDefinition>
+                </Grid.ColumnDefinitions>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="30"></RowDefinition>
+                    <RowDefinition Height="30"></RowDefinition>
+                </Grid.RowDefinitions>
+                <Label Style="{StaticResource LabelStyle}" Content="Логин"></Label>
+                <TextBox Grid.Column="1" Style="{StaticResource TextBoxStyle}"></TextBox>
+                <Label Style="{StaticResource LabelStyle}" Content="Пароль" Grid.Row="1"></Label>
+                <PasswordBox Grid.Column="1" Style="{StaticResource TextBoxStyle}" Grid.Row="1"></PasswordBox>
+            </Grid>
+            <Button Width="150" Height="30" Background="LightGray" Margin="0 50 0 0" BorderThickness="0.5">Войти</Button>
+        </StackPanel>
+        <StackPanel Height="80" VerticalAlignment="Bottom">
+            <TextBlock HorizontalAlignment="Center" Margin="10">
+                <Hyperlink FontSize="12" Click="OnForgotPasswordClick">Забыли пароль?</Hyperlink>
+                <Hyperlink FontSize="12" Click="OnRegistrationClick">Зарегистрироваться</Hyperlink>
+            </TextBlock>
+        </StackPanel>
     </Grid>
 </Window>

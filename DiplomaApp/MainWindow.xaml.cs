@@ -24,5 +24,15 @@ namespace DiplomaUI
         {
             InitializeComponent();
         }
+
+        private void OnForgotPasswordClick(object sender, RoutedEventArgs e)
+        {
+
+        }
+
+        private void OnRegistrationClick(object sender, RoutedEventArgs e)
+        {
+
+        }
     }
 }
