@@ -1,11 +1,12 @@
-﻿<Window x:Class="DiplomaUI.MainWindow"
+﻿<Window x:Class="DiplomaUI.AuthorizationWindow"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:xctk="http://schemas.xceed.com/wpf/xaml/toolkit"
         xmlns:local="clr-namespace:DiplomaApp"
         mc:Ignorable="d"
-        Title="Авторизация" Height="320" Width="300">
+        Title="Авторизация" Height="320" Width="300" WindowStartupLocation="CenterScreen">
     <Window.Resources>
         <Style TargetType="Label">
             <Setter Property="FontSize" Value="15"></Setter>
@@ -15,9 +16,9 @@
             <Setter Property="Label.FontSize" Value="15"></Setter> 
         </Style>
         <Style x:Key="TextBoxStyle">
-            <Setter Property="Button.Margin" Value="5"></Setter>
-            <Setter Property="Button.HorizontalAlignment" Value="Left"></Setter>
-            <Setter Property="Button.Width" Value="150"></Setter>
+            <Setter Property="TextBox.Margin" Value="5"></Setter>
+            <Setter Property="TextBox.HorizontalAlignment" Value="Left"></Setter>
+            <Setter Property="TextBox.Width" Value="150"></Setter>
         </Style>
     </Window.Resources>
     <Grid>
@@ -37,11 +38,10 @@
                 <Label Style="{StaticResource LabelStyle}" Content="Пароль" Grid.Row="1"></Label>
                 <PasswordBox Grid.Column="1" Style="{StaticResource TextBoxStyle}" Grid.Row="1"></PasswordBox>
             </Grid>
-            <Button Width="150" Height="30" Background="LightGray" Margin="0 50 0 0" BorderThickness="0.5">Войти</Button>
+            <Button Width="150" Height="30" Background="LightGray" Margin="0 50 0 0" BorderThickness="0.5" Click="OnAuthentificationClick" >Войти</Button>
         </StackPanel>
         <StackPanel Height="80" VerticalAlignment="Bottom">
             <TextBlock HorizontalAlignment="Center" Margin="10">
-                <Hyperlink FontSize="12" Click="OnForgotPasswordClick">Забыли пароль?</Hyperlink>
                 <Hyperlink FontSize="12" Click="OnRegistrationClick">Зарегистрироваться</Hyperlink>
             </TextBlock>
         </StackPanel>

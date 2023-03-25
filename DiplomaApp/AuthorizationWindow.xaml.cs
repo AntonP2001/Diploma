@@ -12,27 +12,29 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using DiplomaUI;
+using Xceed.Wpf.Toolkit;
 
 namespace DiplomaUI
 {
     /// <summary>
     /// Логика взаимодействия для MainWindow.xaml
     /// </summary>
-    public partial class MainWindow : Window
+    public partial class AuthorizationWindow : Window
     {
-        public MainWindow()
+        public AuthorizationWindow()
         {
             InitializeComponent();
         }
 
-        private void OnForgotPasswordClick(object sender, RoutedEventArgs e)
-        {
-
-        }
-
         private void OnRegistrationClick(object sender, RoutedEventArgs e)
         {
+            var registrationWindow = new RegistrationWindow().ShowDialog();
+        }
 
+        private void OnAuthentificationClick(object sender, RoutedEventArgs e)
+        {
+            
         }
     }
 }
