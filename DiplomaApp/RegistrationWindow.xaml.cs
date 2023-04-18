@@ -11,6 +11,9 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
+using System.Data.Entity;
+using DiplomaCL.Model;
+
 
 namespace DiplomaUI
 {
@@ -19,9 +22,31 @@ namespace DiplomaUI
     /// </summary>
     public partial class RegistrationWindow : Window
     {
+        DipDbContext db;
+
         public RegistrationWindow()
         {
             InitializeComponent();
+        }
+
+        public RegistrationWindow(DipDbContext db) : this()
+        {
+            this.db = db;
+        }
+
+        private void OnRegistrationButtonClick(object sender, RoutedEventArgs e)
+        {
+            User u = new User()
+            {
+                FullName = FullNameTB.Text,
+                CourseNum = Convert.ToInt32(CourseIUD.Text),
+                Login = LoginTB.Text,
+                Password = PasswordTB.Text,
+            };
+            db.Users.Add(u);
+            db.SaveChanges();
+            this.DialogResult = true;
+            this.Close();
         }
     }
 }

@@ -51,10 +51,19 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Migrations\202303251208159_0.1 Migration.cs" />
+    <Compile Include="Migrations\202303251208159_0.1 Migration.designer.cs">
+      <DependentUpon>202303251208159_0.1 Migration.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\Configuration.cs" />
+    <Compile Include="Model\DbContext.cs" />
+    <Compile Include="Model\User.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="Model\" />
+    <EmbeddedResource Include="Migrations\202303251208159_0.1 Migration.resx">
+      <DependentUpon>202303251208159_0.1 Migration.cs</DependentUpon>
+    </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />

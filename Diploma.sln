@@ -8,7 +8,7 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DiplomaUI", "DiplomaApp\Dip
 		{A5B041F3-C28D-45C4-8DE1-BC8009A88566} = {A5B041F3-C28D-45C4-8DE1-BC8009A88566}
 	EndProjectSection
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DiplomaBL", "DiplomaCL\DiplomaBL.csproj", "{A5B041F3-C28D-45C4-8DE1-BC8009A88566}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DiplomaCL", "DiplomaCL\DiplomaCL.csproj", "{A5B041F3-C28D-45C4-8DE1-BC8009A88566}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

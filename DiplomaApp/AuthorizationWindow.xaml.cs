@@ -13,7 +13,8 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 using DiplomaUI;
-using Xceed.Wpf.Toolkit;
+using DiplomaCL.Model;
+using System.Data.Entity;
 
 namespace DiplomaUI
 {
@@ -22,19 +23,33 @@ namespace DiplomaUI
     /// </summary>
     public partial class AuthorizationWindow : Window
     {
+        DipDbContext db;  
+
         public AuthorizationWindow()
         {
             InitializeComponent();
+            db = new DipDbContext();
+            db.Users.LoadAsync();
         }
 
         private void OnRegistrationClick(object sender, RoutedEventArgs e)
         {
-            var registrationWindow = new RegistrationWindow().ShowDialog();
+            this.Hide();
+            var registrationWindow = new RegistrationWindow(db).ShowDialog();
+            this.Show();
+            if (registrationWindow == true) MessageBox.Show("Регистрация прошла успешно!");
         }
 
         private void OnAuthentificationClick(object sender, RoutedEventArgs e)
         {
-            
+            var authUser = db.Users.Where(x => x.Login == loginBox.Text && x.Password == pwdBox.Password).Count();
+            //var authUser = db.Users.Where(w => w.Login == loginBox.Text).Where(x => x.Password == pwdBox.Password).Count();
+            if (authUser == 1)
+            {
+                this.Hide();
+                var mainWindow = new MainWindow().ShowDialog();
+            }
+            else MessageBox.Show("Неверный логин или пароль!");
         }
     }
 }
