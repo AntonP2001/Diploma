@@ -5,10 +5,18 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:DiplomaApp"
         mc:Ignorable="d"
-        Title="MainWindow" Height="450" Width="800">
+        Title="MainWindow" Height="470" Width="850" Closing="OnMainWindowClosing" ResizeMode="CanMinimize">
     <Grid>
-        <ScrollViewer Width="450" Height="380" VerticalAlignment="Top" Margin="10" VerticalScrollBarVisibility="Hidden">
-            <StackPanel Name="partiturePanel" VerticalAlignment="Top"></StackPanel>
-        </ScrollViewer>
+        <StackPanel VerticalAlignment="Bottom" HorizontalAlignment="Left" Width="620">
+            <Border BorderThickness="2" BorderBrush="Black" Margin="10 10 10 0">
+                <ScrollViewer Height="370" Visibility="Visible" VerticalAlignment="Top" VerticalScrollBarVisibility="Hidden">
+                    <StackPanel Name="partiturePanel" VerticalAlignment="Top"></StackPanel>
+                </ScrollViewer>
+            </Border>
+            <StackPanel Orientation="Horizontal" Margin="0 0 10 0" HorizontalAlignment="Right">
+                <Button Width="150" Height="30" Margin="5 10 5 5" Click="OnAddingRecordClick">Добавить запись</Button>
+            </StackPanel>
+        </StackPanel>
+        <Border BorderThickness="2" BorderBrush="Gray" Margin="10 10 10 5" VerticalAlignment="Stretch" HorizontalAlignment="Right" Width="200"></Border>
     </Grid>
 </Window>

@@ -11,5 +11,6 @@ namespace DiplomaCL.Model
     {
         public DipDbContext() : base("DipConnection") { }
         public DbSet<User> Users { get; set; }
+        public DbSet<Partiture> Partitures { get; set; }  
     }
 }

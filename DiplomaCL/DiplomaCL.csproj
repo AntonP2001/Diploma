@@ -51,23 +51,31 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Migrations\202303251208159_0.1 Migration.cs" />
-    <Compile Include="Migrations\202303251208159_0.1 Migration.designer.cs">
-      <DependentUpon>202303251208159_0.1 Migration.cs</DependentUpon>
+    <Compile Include="Migrations\202304201449049_0.1.cs" />
+    <Compile Include="Migrations\202304201449049_0.1.designer.cs">
+      <DependentUpon>202304201449049_0.1.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202304201503465_0.2_AddedAuthorFieldToPartiture.cs" />
+    <Compile Include="Migrations\202304201503465_0.2_AddedAuthorFieldToPartiture.designer.cs">
+      <DependentUpon>202304201503465_0.2_AddedAuthorFieldToPartiture.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Model\DbContext.cs" />
+    <Compile Include="Model\Partiture.cs" />
     <Compile Include="Model\User.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Migrations\202303251208159_0.1 Migration.resx">
-      <DependentUpon>202303251208159_0.1 Migration.cs</DependentUpon>
-    </EmbeddedResource>
-  </ItemGroup>
-  <ItemGroup>
     <None Include="App.config" />
     <None Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Migrations\202304201449049_0.1.resx">
+      <DependentUpon>202304201449049_0.1.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202304201503465_0.2_AddedAuthorFieldToPartiture.resx">
+      <DependentUpon>202304201503465_0.2_AddedAuthorFieldToPartiture.cs</DependentUpon>
+    </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">

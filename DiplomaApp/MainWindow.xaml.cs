@@ -11,6 +11,8 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
+using System.Data.Entity;
+using DiplomaCL.Model;
 
 namespace DiplomaUI
 {
@@ -19,16 +21,34 @@ namespace DiplomaUI
     /// </summary>
     public partial class MainWindow : Window
     {
+
+        DipDbContext db;
+
         public MainWindow()
         {
+            db = new DipDbContext();
+            db.Partitures.Load();
             InitializeComponent();
-            List<PartitureForm> forms = new List<PartitureForm>()
+            List<PartitureViewForm> forms = new List<PartitureViewForm>()
             { 
-                new PartitureForm(),
-                new PartitureForm(),
-                new PartitureForm()
+                new PartitureViewForm(),
+                new PartitureViewForm(),
+                new PartitureViewForm()
             }; 
             foreach (var form in forms) partiturePanel.Children.Add(form);
+        }
+
+        private void OnMainWindowClosing(object sender, System.ComponentModel.CancelEventArgs e)
+        {
+            if (MessageBox.Show("Вы действительно хотите выйти?", "Завершить работу", MessageBoxButton.OKCancel, MessageBoxImage.None)
+                == MessageBoxResult.OK) Application.Current.Shutdown();
+            else e.Cancel = true;
+        }
+
+        private void OnAddingRecordClick(object sender, RoutedEventArgs e)
+        {
+            PartitureForm partitureForm = new PartitureForm();
+            if (partitureForm.ShowDialog() == true) MessageBox.Show("Запись добавлена!");
         }
     }
 }

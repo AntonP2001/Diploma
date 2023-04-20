@@ -43,13 +43,12 @@ namespace DiplomaUI
         private void OnAuthentificationClick(object sender, RoutedEventArgs e)
         {
             var authUser = db.Users.Where(x => x.Login == loginBox.Text && x.Password == pwdBox.Password).Count();
-            //var authUser = db.Users.Where(w => w.Login == loginBox.Text).Where(x => x.Password == pwdBox.Password).Count();
             if (authUser == 1)
             {
                 this.Hide();
                 var mainWindow = new MainWindow().ShowDialog();
             }
-            else MessageBox.Show("Неверный логин или пароль!");
+            else errorMessageLabel.Visibility = Visibility.Visible;
         }
     }
 }

@@ -3,10 +3,24 @@
     using System;
     using System.Data.Entity.Migrations;
     
-    public partial class _01Migration : DbMigration
+    public partial class _01 : DbMigration
     {
         public override void Up()
         {
+            CreateTable(
+                "dbo.Partitures",
+                c => new
+                    {
+                        Id = c.Int(nullable: false, identity: true),
+                        Name = c.String(),
+                        Style = c.String(),
+                        WorkType = c.String(),
+                        Instrumentation = c.String(),
+                        Language = c.String(),
+                        File = c.Binary(),
+                    })
+                .PrimaryKey(t => t.Id);
+            
             CreateTable(
                 "dbo.Users",
                 c => new
@@ -25,6 +39,7 @@
         public override void Down()
         {
             DropTable("dbo.Users");
+            DropTable("dbo.Partitures");
         }
     }
 }
