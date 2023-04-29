@@ -7,13 +7,13 @@ namespace DiplomaCL.Migrations
     using System.Resources;
     
     [GeneratedCode("EntityFramework.Migrations", "6.4.4")]
-    public sealed partial class _01 : IMigrationMetadata
+    public sealed partial class AddedField : IMigrationMetadata
     {
-        private readonly ResourceManager Resources = new ResourceManager(typeof(_01));
+        private readonly ResourceManager Resources = new ResourceManager(typeof(AddedField));
         
         string IMigrationMetadata.Id
         {
-            get { return "202304201449049_0.1"; }
+            get { return "202304281957593_AddedField"; }
         }
         
         string IMigrationMetadata.Source

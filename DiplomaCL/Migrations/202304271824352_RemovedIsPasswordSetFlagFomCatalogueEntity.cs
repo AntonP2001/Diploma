@@ -3,16 +3,16 @@
     using System;
     using System.Data.Entity.Migrations;
     
-    public partial class _02_AddedAuthorFieldToPartiture : DbMigration
+    public partial class RemovedIsPasswordSetFlagFomCatalogueEntity : DbMigration
     {
         public override void Up()
         {
-            AddColumn("dbo.Partitures", "Author", c => c.String());
+            DropColumn("dbo.Catalogues", "IsPasswordSet");
         }
         
         public override void Down()
         {
-            DropColumn("dbo.Partitures", "Author");
+            AddColumn("dbo.Catalogues", "IsPasswordSet", c => c.Boolean(nullable: false));
         }
     }
 }
