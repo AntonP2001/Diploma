@@ -7,13 +7,13 @@ namespace DiplomaCL.Migrations
     using System.Resources;
     
     [GeneratedCode("EntityFramework.Migrations", "6.4.4")]
-    public sealed partial class _02_AddedAuthorFieldToPartiture : IMigrationMetadata
+    public sealed partial class RemovedIsPasswordSetFlagFomCatalogueEntity : IMigrationMetadata
     {
-        private readonly ResourceManager Resources = new ResourceManager(typeof(_02_AddedAuthorFieldToPartiture));
+        private readonly ResourceManager Resources = new ResourceManager(typeof(RemovedIsPasswordSetFlagFomCatalogueEntity));
         
         string IMigrationMetadata.Id
         {
-            get { return "202304201503465_0.2_AddedAuthorFieldToPartiture"; }
+            get { return "202304271824352_RemovedIsPasswordSetFlagFomCatalogueEntity"; }
         }
         
         string IMigrationMetadata.Source

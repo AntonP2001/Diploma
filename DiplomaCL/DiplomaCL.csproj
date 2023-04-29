@@ -40,6 +40,8 @@
     <Reference Include="EntityFramework.SqlServer, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
       <HintPath>..\packages\EntityFramework.6.4.4\lib\net45\EntityFramework.SqlServer.dll</HintPath>
     </Reference>
+    <Reference Include="PresentationCore" />
+    <Reference Include="PresentationFramework" />
     <Reference Include="System" />
     <Reference Include="System.ComponentModel.DataAnnotations" />
     <Reference Include="System.Core" />
@@ -49,18 +51,30 @@
     <Reference Include="System.Data" />
     <Reference Include="System.Net.Http" />
     <Reference Include="System.Xml" />
+    <Reference Include="WindowsBase" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Migrations\202304201449049_0.1.cs" />
-    <Compile Include="Migrations\202304201449049_0.1.designer.cs">
-      <DependentUpon>202304201449049_0.1.cs</DependentUpon>
+    <Compile Include="Converters\ByteArrayToBitmapImageConverter.cs" />
+    <Compile Include="Migrations\202304271710031_AddedCatalogueEntity.cs" />
+    <Compile Include="Migrations\202304271710031_AddedCatalogueEntity.designer.cs">
+      <DependentUpon>202304271710031_AddedCatalogueEntity.cs</DependentUpon>
     </Compile>
-    <Compile Include="Migrations\202304201503465_0.2_AddedAuthorFieldToPartiture.cs" />
-    <Compile Include="Migrations\202304201503465_0.2_AddedAuthorFieldToPartiture.designer.cs">
-      <DependentUpon>202304201503465_0.2_AddedAuthorFieldToPartiture.cs</DependentUpon>
+    <Compile Include="Migrations\202304271824352_RemovedIsPasswordSetFlagFomCatalogueEntity.cs" />
+    <Compile Include="Migrations\202304271824352_RemovedIsPasswordSetFlagFomCatalogueEntity.designer.cs">
+      <DependentUpon>202304271824352_RemovedIsPasswordSetFlagFomCatalogueEntity.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202304272204285_AddedIsSelectedFieldToCatalogue.cs" />
+    <Compile Include="Migrations\202304272204285_AddedIsSelectedFieldToCatalogue.designer.cs">
+      <DependentUpon>202304272204285_AddedIsSelectedFieldToCatalogue.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202304281957593_AddedField.cs" />
+    <Compile Include="Migrations\202304281957593_AddedField.designer.cs">
+      <DependentUpon>202304281957593_AddedField.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
+    <Compile Include="Model\Catalogue.cs" />
     <Compile Include="Model\DbContext.cs" />
+    <Compile Include="Model\NotifyPropertyChanged.cs" />
     <Compile Include="Model\Partiture.cs" />
     <Compile Include="Model\User.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -70,11 +84,17 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Migrations\202304201449049_0.1.resx">
-      <DependentUpon>202304201449049_0.1.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\202304271710031_AddedCatalogueEntity.resx">
+      <DependentUpon>202304271710031_AddedCatalogueEntity.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\202304201503465_0.2_AddedAuthorFieldToPartiture.resx">
-      <DependentUpon>202304201503465_0.2_AddedAuthorFieldToPartiture.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\202304271824352_RemovedIsPasswordSetFlagFomCatalogueEntity.resx">
+      <DependentUpon>202304271824352_RemovedIsPasswordSetFlagFomCatalogueEntity.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202304272204285_AddedIsSelectedFieldToCatalogue.resx">
+      <DependentUpon>202304272204285_AddedIsSelectedFieldToCatalogue.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202304281957593_AddedField.resx">
+      <DependentUpon>202304281957593_AddedField.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
