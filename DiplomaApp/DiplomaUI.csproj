@@ -86,75 +86,54 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
-    <Compile Include="CatalogueForm.xaml.cs">
-      <DependentUpon>CatalogueForm.xaml</DependentUpon>
+    <Compile Include="Infrastructure\NotifyPropertyChanged.cs" />
+    <Compile Include="Model\Migrations\202304271710031_AddedCatalogueEntity.cs" />
+    <Compile Include="Model\Migrations\202304271710031_AddedCatalogueEntity.Designer.cs">
+      <DependentUpon>202304271710031_AddedCatalogueEntity.cs</DependentUpon>
     </Compile>
-    <Compile Include="MainWindow.xaml.cs">
-      <DependentUpon>MainWindow.xaml</DependentUpon>
+    <Compile Include="Model\Migrations\202304271824352_RemovedIsPasswordSetFlagFomCatalogueEntity.cs" />
+    <Compile Include="Model\Migrations\202304271824352_RemovedIsPasswordSetFlagFomCatalogueEntity.Designer.cs">
+      <DependentUpon>202304271824352_RemovedIsPasswordSetFlagFomCatalogueEntity.cs</DependentUpon>
     </Compile>
-    <Compile Include="MVVM\MainView.xaml.cs">
+    <Compile Include="Model\Migrations\202304272204285_AddedIsSelectedFieldToCatalogue.cs" />
+    <Compile Include="Model\Migrations\202304272204285_AddedIsSelectedFieldToCatalogue.Designer.cs">
+      <DependentUpon>202304272204285_AddedIsSelectedFieldToCatalogue.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Model\Migrations\202304281957593_AddedField.cs" />
+    <Compile Include="Model\Migrations\202304281957593_AddedField.Designer.cs">
+      <DependentUpon>202304281957593_AddedField.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Model\Migrations\Configuration.cs" />
+    <Compile Include="Model\Catalogue.cs" />
+    <Compile Include="Model\Partiture.cs" />
+    <Compile Include="Model\User.cs" />
+    <Compile Include="Data\DbContext.cs" />
+    <Compile Include="View\MainView.xaml.cs">
       <DependentUpon>MainView.xaml</DependentUpon>
     </Compile>
-    <Compile Include="MVVM\MainViewModel.cs" />
-    <Compile Include="MVVM\PartitureFormView.xaml.cs">
+    <Compile Include="ViewModel\MainViewModel.cs" />
+    <Compile Include="View\PartitureFormView.xaml.cs">
       <DependentUpon>PartitureFormView.xaml</DependentUpon>
     </Compile>
-    <Compile Include="MVVM\PartitureFormViewModel.cs" />
-    <Compile Include="MVVM\RelayCommand.cs" />
-    <Compile Include="MVVM\TreeView.xaml.cs">
+    <Compile Include="ViewModel\PartitureFormViewModel.cs" />
+    <Compile Include="Infrastructure\Commands\RelayCommand.cs" />
+    <Compile Include="View\TreeView.xaml.cs">
       <DependentUpon>TreeView.xaml</DependentUpon>
     </Compile>
-    <Compile Include="MVVM\TreeViewModel.cs" />
-    <Compile Include="PartitureForm.xaml.cs">
-      <DependentUpon>PartitureForm.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="PartitureViewForm.xaml.cs">
-      <DependentUpon>PartitureViewForm.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="RegistrationWindow.xaml.cs">
-      <DependentUpon>RegistrationWindow.xaml</DependentUpon>
-    </Compile>
-    <Page Include="AuthorizationWindow.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </Page>
+    <Compile Include="ViewModel\TreeViewModel.cs" />
     <Compile Include="App.xaml.cs">
       <DependentUpon>App.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="AuthorizationWindow.xaml.cs">
-      <DependentUpon>AuthorizationWindow.xaml</DependentUpon>
-      <SubType>Code</SubType>
-    </Compile>
-    <Page Include="CatalogueForm.xaml">
+    <Page Include="View\MainView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="MainWindow.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="MVVM\MainView.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="MVVM\PartitureFormView.xaml">
+    <Page Include="View\PartitureFormView.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Page Include="MVVM\TreeView.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="PartitureForm.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="PartitureViewForm.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="RegistrationWindow.xaml">
+    <Page Include="View\TreeView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -173,6 +152,18 @@
       <DependentUpon>Settings.settings</DependentUpon>
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
     </Compile>
+    <EmbeddedResource Include="Model\Migrations\202304271710031_AddedCatalogueEntity.resx">
+      <DependentUpon>202304271710031_AddedCatalogueEntity.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Model\Migrations\202304271824352_RemovedIsPasswordSetFlagFomCatalogueEntity.resx">
+      <DependentUpon>202304271824352_RemovedIsPasswordSetFlagFomCatalogueEntity.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Model\Migrations\202304272204285_AddedIsSelectedFieldToCatalogue.resx">
+      <DependentUpon>202304272204285_AddedIsSelectedFieldToCatalogue.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Model\Migrations\202304281957593_AddedField.resx">
+      <DependentUpon>202304281957593_AddedField.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
@@ -187,10 +178,7 @@
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\DiplomaCL\DiplomaCL.csproj">
-      <Project>{a5b041f3-c28d-45c4-8de1-bc8009a88566}</Project>
-      <Name>DiplomaCL</Name>
-    </ProjectReference>
+    <Folder Include="Service\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">

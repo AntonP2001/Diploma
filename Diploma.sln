@@ -4,11 +4,6 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 VisualStudioVersion = 17.2.32616.157
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DiplomaUI", "DiplomaApp\DiplomaUI.csproj", "{A8E0F97C-177E-4777-AAAE-845E9A5D0728}"
-	ProjectSection(ProjectDependencies) = postProject
-		{A5B041F3-C28D-45C4-8DE1-BC8009A88566} = {A5B041F3-C28D-45C4-8DE1-BC8009A88566}
-	EndProjectSection
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DiplomaCL", "DiplomaCL\DiplomaCL.csproj", "{A5B041F3-C28D-45C4-8DE1-BC8009A88566}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -20,10 +15,6 @@ Global
 		{A8E0F97C-177E-4777-AAAE-845E9A5D0728}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{A8E0F97C-177E-4777-AAAE-845E9A5D0728}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{A8E0F97C-177E-4777-AAAE-845E9A5D0728}.Release|Any CPU.Build.0 = Release|Any CPU
-		{A5B041F3-C28D-45C4-8DE1-BC8009A88566}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{A5B041F3-C28D-45C4-8DE1-BC8009A88566}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{A5B041F3-C28D-45C4-8DE1-BC8009A88566}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{A5B041F3-C28D-45C4-8DE1-BC8009A88566}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
