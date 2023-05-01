@@ -13,51 +13,15 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 using System.Data.Entity;
-using DiplomaCL.Model;
 using DiplomaUI;
 
-namespace DiplomaUI.MVVM
+namespace DiplomaUI.View
 {
     /// <summary>
     /// Логика взаимодействия для PartitureForm.xaml
     /// </summary>
     public partial class PartitureFormView : UserControl
     {
-        #region EditPartiture
-        public static readonly DependencyProperty EditPartitureProperty =
-            DependencyProperty.Register(
-                    "EditPartiture",
-                    typeof(ICommand),
-                    typeof(PartitureFormView),
-                    new UIPropertyMetadata(null)
-                );
-
-        private ICommand _editPartiture;
-        public ICommand EditPartiture
-        {
-            get => (ICommand)GetValue(EditPartitureProperty);
-            set => SetValue(EditPartitureProperty, value);
-        }
-        #endregion
-
-        #region DeletePartiture
-        public static readonly DependencyProperty DeletePartitureProperty =
-            DependencyProperty.Register(
-                    "DeletePartiture",
-                    typeof(ICommand),
-                    typeof(PartitureFormView),
-                    new UIPropertyMetadata(null)
-                );
-
-        private ICommand _deletePartiture;
-        public ICommand DeletePartiture
-        {
-            get => (ICommand)GetValue(DeletePartitureProperty);
-            set => SetValue(DeletePartitureProperty, value);
-        }
-
-        #endregion
-
         public PartitureFormView()
         {
             InitializeComponent();

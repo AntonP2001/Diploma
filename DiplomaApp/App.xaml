@@ -1,8 +1,8 @@
-﻿<Application x:Class="DiplomaApp.App"
+﻿<Application x:Class="DiplomaUI.App"
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:local="clr-namespace:DiplomaApp"
-             StartupUri="MVVM\MainView.xaml">
+             StartupUri="View\MainView.xaml">
     <Application.Resources>
          
     </Application.Resources>

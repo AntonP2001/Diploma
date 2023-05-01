@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace DiplomaCL.Model
+namespace DiplomaUI.Model
 {
     public class User
     {

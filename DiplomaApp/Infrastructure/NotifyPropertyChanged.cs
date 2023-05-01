@@ -6,7 +6,7 @@ using System.Runtime.CompilerServices;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace DiplomaCL.Model
+namespace DiplomaUI.Infrastructure
 {
     public class NotifyPropertyChanged : INotifyPropertyChanged
     {

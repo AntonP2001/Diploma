@@ -1,71 +1,61 @@
-﻿using System;
+﻿using DiplomaUI.Infrastructure;
+using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
-using System.ComponentModel;
 using System.Linq;
-using System.Runtime.CompilerServices;
 using System.Text;
 using System.Threading.Tasks;
-using System.Windows.Input;
 
-namespace DiplomaCL.Model
+namespace DiplomaUI.Model
 {
     public class Catalogue : NotifyPropertyChanged
     {
-        public int Id { get; set; }
-
-        private string name;
-        public string Name 
-        { 
-            get => name; 
-            set
-            {
-                name = value;
-                OnPropertyChanged("Name");
-            } 
-        }
-
-        private string password;
-        public string Password { 
-            get => password; 
-            set
-            {
-                password = value;
-                OnPropertyChanged("Password");
-            }
-        }
-
-        private bool isSelected;
-        public virtual bool IsSelected
+        private int _id;
+        public int Id
         {
-            get => isSelected;
-            set
-            {
-                isSelected = value;
+            get => _id; 
+            set 
+            { 
+                _id = value;
                 OnPropertyChanged();
             }
         }
 
-        private ObservableCollection<Catalogue> catalogues = new ObservableCollection<Catalogue>();
-        public virtual ObservableCollection<Catalogue> Catalogues 
-        { 
-            get => catalogues;
-            set
-            {
-                catalogues = value;
-                OnPropertyChanged("Catalogues");
+        private string _name;
+        public string Name
+        {
+            get => _name;
+            set 
+            { 
+                _name = value;
+                OnPropertyChanged();
             }
         }
 
-        private ObservableCollection<Partiture> partitures = new ObservableCollection<Partiture>();
-        public virtual ObservableCollection<Partiture> Partitures 
-        { 
-            get => partitures; 
-            set
-            {
-                partitures = value;
-                OnPropertyChanged("Partitures");
+        private bool _isSelected;
+        public bool IsSelected
+        {
+            get => _isSelected; 
+            set 
+            { 
+                _isSelected = value;
+                OnPropertyChanged();
             }
         }
+
+        private string _password;
+        public string Password
+        {
+            get => _password;
+            set { 
+                _password = value;
+                OnPropertyChanged();
+            }
+        }
+
+        public Catalogue ParentCatalogue { get; set; }
+
+        public ObservableCollection<Catalogue> Catalogues = new ObservableCollection<Catalogue>();
+        public ObservableCollection<Partiture> Partitures = new ObservableCollection<Partiture>();
     }
 }

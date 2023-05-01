@@ -1,9 +1,9 @@
-﻿namespace DiplomaCL.Migrations
+﻿namespace DiplomaUI.Migrations
 {
     using System;
     using System.Data.Entity.Migrations;
     
-    public partial class AddedCatalogueEntity : DbMigration
+    public partial class RenewedDatabase : DbMigration
     {
         public override void Up()
         {
@@ -14,7 +14,7 @@
                         Id = c.Int(nullable: false, identity: true),
                         Name = c.String(),
                         Password = c.String(),
-                        IsPasswordSet = c.Boolean(nullable: false),
+                        IsSelected = c.Boolean(nullable: false),
                         Catalogue_Id = c.Int(),
                     })
                 .PrimaryKey(t => t.Id)

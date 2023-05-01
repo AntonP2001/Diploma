@@ -4,8 +4,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Data.Entity;
+using DiplomaUI.Model;
 
-namespace DiplomaCL.Model
+namespace DiplomaUI.Data
 {
     public class DipDbContext : DbContext  
     {

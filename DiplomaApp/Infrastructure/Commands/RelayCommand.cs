@@ -5,7 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Input;
 
-namespace DiplomaUI.MVVM
+namespace DiplomaUI.Infrastructure.Commands
 {
     public class RelayCommand : ICommand
     {

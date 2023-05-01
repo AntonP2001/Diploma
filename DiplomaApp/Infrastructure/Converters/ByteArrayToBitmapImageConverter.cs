@@ -9,7 +9,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.IO;
 
-namespace DiplomaCL.Converters
+namespace DiplomaUI.Infrastructure.Converters
 {
     public class ByteArrayToBitmapImageConverter : IValueConverter
     {

@@ -53,6 +53,8 @@
     <Reference Include="System" />
     <Reference Include="System.ComponentModel.DataAnnotations" />
     <Reference Include="System.Data" />
+    <Reference Include="System.Runtime.Serialization" />
+    <Reference Include="System.Security" />
     <Reference Include="System.Xml" />
     <Reference Include="Microsoft.CSharp" />
     <Reference Include="System.Core" />
@@ -86,28 +88,24 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="Infrastructure\Converters\ByteArrayToBitmapImageConverter.cs" />
+    <Compile Include="Infrastructure\Converters\FileLoadedConverter.cs" />
+    <Compile Include="Infrastructure\Converters\IsEnabledConverter.cs" />
     <Compile Include="Infrastructure\NotifyPropertyChanged.cs" />
-    <Compile Include="Model\Migrations\202304271710031_AddedCatalogueEntity.cs" />
-    <Compile Include="Model\Migrations\202304271710031_AddedCatalogueEntity.Designer.cs">
-      <DependentUpon>202304271710031_AddedCatalogueEntity.cs</DependentUpon>
+    <Compile Include="Infrastructure\Proxies\BindingProxy.cs" />
+    <Compile Include="Migrations\202304301807005_RenewedDatabase.cs" />
+    <Compile Include="Migrations\202304301807005_RenewedDatabase.designer.cs">
+      <DependentUpon>202304301807005_RenewedDatabase.cs</DependentUpon>
     </Compile>
-    <Compile Include="Model\Migrations\202304271824352_RemovedIsPasswordSetFlagFomCatalogueEntity.cs" />
-    <Compile Include="Model\Migrations\202304271824352_RemovedIsPasswordSetFlagFomCatalogueEntity.Designer.cs">
-      <DependentUpon>202304271824352_RemovedIsPasswordSetFlagFomCatalogueEntity.cs</DependentUpon>
+    <Compile Include="Migrations\202305011459078_GenDB.cs" />
+    <Compile Include="Migrations\202305011459078_GenDB.designer.cs">
+      <DependentUpon>202305011459078_GenDB.cs</DependentUpon>
     </Compile>
-    <Compile Include="Model\Migrations\202304272204285_AddedIsSelectedFieldToCatalogue.cs" />
-    <Compile Include="Model\Migrations\202304272204285_AddedIsSelectedFieldToCatalogue.Designer.cs">
-      <DependentUpon>202304272204285_AddedIsSelectedFieldToCatalogue.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Model\Migrations\202304281957593_AddedField.cs" />
-    <Compile Include="Model\Migrations\202304281957593_AddedField.Designer.cs">
-      <DependentUpon>202304281957593_AddedField.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Model\Migrations\Configuration.cs" />
+    <Compile Include="Migrations\Configuration.cs" />
+    <Compile Include="Data\DbContext.cs" />
     <Compile Include="Model\Catalogue.cs" />
     <Compile Include="Model\Partiture.cs" />
     <Compile Include="Model\User.cs" />
-    <Compile Include="Data\DbContext.cs" />
     <Compile Include="View\MainView.xaml.cs">
       <DependentUpon>MainView.xaml</DependentUpon>
     </Compile>
@@ -117,10 +115,6 @@
     </Compile>
     <Compile Include="ViewModel\PartitureFormViewModel.cs" />
     <Compile Include="Infrastructure\Commands\RelayCommand.cs" />
-    <Compile Include="View\TreeView.xaml.cs">
-      <DependentUpon>TreeView.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="ViewModel\TreeViewModel.cs" />
     <Compile Include="App.xaml.cs">
       <DependentUpon>App.xaml</DependentUpon>
       <SubType>Code</SubType>
@@ -132,10 +126,6 @@
     <Page Include="View\PartitureFormView.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
-    </Page>
-    <Page Include="View\TreeView.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
     </Page>
   </ItemGroup>
   <ItemGroup>
@@ -152,17 +142,11 @@
       <DependentUpon>Settings.settings</DependentUpon>
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
     </Compile>
-    <EmbeddedResource Include="Model\Migrations\202304271710031_AddedCatalogueEntity.resx">
-      <DependentUpon>202304271710031_AddedCatalogueEntity.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\202304301807005_RenewedDatabase.resx">
+      <DependentUpon>202304301807005_RenewedDatabase.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Model\Migrations\202304271824352_RemovedIsPasswordSetFlagFomCatalogueEntity.resx">
-      <DependentUpon>202304271824352_RemovedIsPasswordSetFlagFomCatalogueEntity.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Model\Migrations\202304272204285_AddedIsSelectedFieldToCatalogue.resx">
-      <DependentUpon>202304272204285_AddedIsSelectedFieldToCatalogue.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Model\Migrations\202304281957593_AddedField.resx">
-      <DependentUpon>202304281957593_AddedField.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\202305011459078_GenDB.resx">
+      <DependentUpon>202305011459078_GenDB.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
@@ -179,6 +163,9 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Service\" />
+  </ItemGroup>
+  <ItemGroup>
+    <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
