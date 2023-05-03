@@ -8,7 +8,7 @@
         xmlns:uc="clr-namespace:DiplomaUI"
         xmlns:conv="clr-namespace:DiplomaCL.Converters;assembly=DiplomaCL"
         mc:Ignorable="d"
-        Title="MainWindow" Height="800" Width="1420" Background="#FFF3F3F3" Initialized="OnWindowInit">
+        Title="MainWindow" Height="800" Width="1420" Background="#FFF3F3F3" Initialized="OnWindowInit" Closing="OnWindowClosing">
     <Window.Resources>
         <conv:IsEnabledConverter x:Key="IsEnabledConv"/>
         <conv:ByteArrayToBitmapImageConverter x:Key="byteToImageConverter"/>
@@ -26,7 +26,8 @@
                 <RowDefinition Height="30"></RowDefinition>
             </Grid.RowDefinitions>
             <DockPanel>
-                <Border Margin="5 10" Background="#FFD6D6D6" BorderBrush="Black" BorderThickness="0" Visibility="{Binding ElementName=partitureGridView, Path=Visibility}">
+                <Border Margin="5 10" Background="#FFD6D6D6" BorderBrush="Black" BorderThickness="0" 
+                        Visibility="{Binding ElementName=partitureGridView, Path=Visibility}">
                     <Grid DataContext="{Binding Partiture}" 
                           x:Name="partitureGridView" DockPanel.Dock="Left" Width="300"
                           Visibility="Collapsed" Margin="30" VerticalAlignment="Top">
@@ -84,7 +85,7 @@
                             <i:Interaction.Triggers>
                                 <i:EventTrigger EventName="Click">
                                     <i:ChangePropertyAction TargetObject="{Binding ElementName=partitureGridView}" 
-                                                                PropertyName="Visibility" Value="Collapsed"/>
+                                        PropertyName="Visibility" Value="Collapsed"/>
                                 </i:EventTrigger>
                             </i:Interaction.Triggers>
                         </Button>
@@ -100,7 +101,8 @@
                             </ItemsControl.ItemsPanel>
                             <ItemsControl.ItemTemplate >
                                 <DataTemplate>
-                                    <uc:PartitureViewForm x:Name="partitureViewForm" DataContext="{Binding}"></uc:PartitureViewForm>
+                                    <uc:PartitureViewForm x:Name="partitureViewForm" DataContext="{Binding}"
+                                                          DeleteClick="PartitureViewForm_DeleteClick"></uc:PartitureViewForm>
                                 </DataTemplate>
                             </ItemsControl.ItemTemplate>
                         </ItemsControl>

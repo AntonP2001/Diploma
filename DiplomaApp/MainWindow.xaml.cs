@@ -116,7 +116,9 @@ namespace DiplomaUI
 
         private void OnWindowInit(object sender, EventArgs e)
         {
-            var dbCatalogues = new ObservableCollection<Catalogue>(dbContext.Catalogues.Select(x => x).ToList());
+            var dbCatalogues = new ObservableCollection<Catalogue>(dbContext.Catalogues.Select(x => x)
+                .Include(x => x.Partitures)
+                .ToList());
             Items = new ObservableCollection<Catalogue>();
             Items.Add(dbCatalogues[0]);
             catalogueTreeView.ItemsSource = Items;
@@ -144,8 +146,7 @@ namespace DiplomaUI
             CurrentCatalogue.Catalogues.Add(Catalogue);
             dbContext.Entry(CurrentCatalogue).State = EntityState.Modified;
             dbContext.SaveChanges();
-            var dbCatalogues = new ObservableCollection<Catalogue>(dbContext.Catalogues.Select(x => x)
-                .Include(x => x.Partitures).ToList());
+            var dbCatalogues = new ObservableCollection<Catalogue>(dbContext.Catalogues.Select(x => x).ToList());
             Items = new ObservableCollection<Catalogue>();
             Items.Add(dbCatalogues[0]);
             catalogueTreeView.ItemsSource = Items;
@@ -168,6 +169,24 @@ namespace DiplomaUI
             dbContext.Entry(CurrentCatalogue).State = EntityState.Modified;
             dbContext.SaveChanges();
             Partitures = CurrentCatalogue.Partitures;
+        }
+
+        private void PartitureViewForm_DeleteClick(object sender, RoutedEventArgs e)
+        {
+            var partitureForm = sender as Control;
+            Partitures.Remove(partitureForm.DataContext as Partiture);
+            dbContext.Entry(partitureForm.DataContext as Partiture).State = EntityState.Deleted;
+            dbContext.SaveChanges();
+        }
+
+        private void OnWindowClosing(object sender, CancelEventArgs e)
+        {
+            var result = MessageBox.Show("Вы действительно хотите выйти?", "Выход", MessageBoxButton.YesNo);
+            if (result != MessageBoxResult.Yes)
+            {
+                e.Cancel = true;
+            }
+            Application.Current.Shutdown();
         }
     }
 }

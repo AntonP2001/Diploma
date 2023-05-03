@@ -46,7 +46,7 @@ namespace DiplomaUI
             if (authUser == 1)
             {
                 this.Hide();
-                var mainWindow = new MainWindow().ShowDialog();
+                new MainWindow().Show();
             }
             else errorMessageLabel.Visibility = Visibility.Visible;
         }

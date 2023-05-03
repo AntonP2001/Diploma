@@ -43,7 +43,40 @@ namespace DiplomaUI
         public PartitureViewForm()
         {
             InitializeComponent();
-            this.DataContext = Partiture;
         }
+
+        private void OnPartitureViewLoaded(object sender, RoutedEventArgs e)
+        {
+            var k = 0;
+        }
+
+        private void delete_Click(object sender, RoutedEventArgs e)
+        {
+            OnDeleteClick();
+        }
+
+        #region RoutedEvent
+
+        public static readonly RoutedEvent DeleteClickEvent = EventManager.RegisterRoutedEvent(
+            "DeleteClick", RoutingStrategy.Bubble, typeof(RoutedEventHandler), typeof(PartitureViewForm));
+
+        public event RoutedEventHandler DeleteClick
+        {
+            add { AddHandler(DeleteClickEvent, value); }
+            remove { RemoveHandler(DeleteClickEvent, value); }
+        }
+
+        void RaiseDeleteClickEvent()
+        {
+            RaiseEvent(new RoutedEventArgs(DeleteClickEvent));
+        }
+
+        protected void OnDeleteClick()
+        {
+            RaiseDeleteClickEvent();
+        }
+
+        #endregion
+
     }
 }
