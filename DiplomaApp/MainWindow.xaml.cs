@@ -26,6 +26,17 @@ namespace DiplomaUI
     {
 
         #region Свойства
+          
+        private Partiture _partiture;
+        public Partiture Partiture
+        {
+            get => _partiture;
+            set
+            {
+                _partiture = value;
+                OnPropertyChanged();
+            }
+        }
 
         private Catalogue _catalogue;
         public Catalogue Catalogue
@@ -113,11 +124,15 @@ namespace DiplomaUI
             partituresList.ItemsSource = Partitures;
             Catalogue = new Catalogue();
             catalogueName.DataContext = Catalogue;
+            Partiture = new Partiture();
+            partitureGridView.DataContext = Partiture;
         }
 
         private void OnTreeViewSelectedItemChanged(object sender, RoutedPropertyChangedEventArgs<object> e)
         {
             CurrentCatalogue = e.NewValue as Catalogue;
+            Partitures = CurrentCatalogue.Partitures;
+            partituresList.ItemsSource = Partitures;
         }
 
         private void OnAddingCatalogue(object sender, RoutedEventArgs e)
@@ -129,7 +144,8 @@ namespace DiplomaUI
             CurrentCatalogue.Catalogues.Add(Catalogue);
             dbContext.Entry(CurrentCatalogue).State = EntityState.Modified;
             dbContext.SaveChanges();
-            var dbCatalogues = new ObservableCollection<Catalogue>(dbContext.Catalogues.Select(x => x).ToList());
+            var dbCatalogues = new ObservableCollection<Catalogue>(dbContext.Catalogues.Select(x => x)
+                .Include(x => x.Partitures).ToList());
             Items = new ObservableCollection<Catalogue>();
             Items.Add(dbCatalogues[0]);
             catalogueTreeView.ItemsSource = Items;
@@ -141,6 +157,17 @@ namespace DiplomaUI
             CurrentCatalogue.ParentCatalogue.Catalogues.Remove(menuItem.DataContext as Catalogue);
             dbContext.Entry(CurrentCatalogue.ParentCatalogue).State = EntityState.Modified;
             dbContext.SaveChanges();
+        }
+
+        private void OnAddingPartiture(object sender, RoutedEventArgs e)
+        {
+            if (CurrentCatalogue.Partitures == null)
+                CurrentCatalogue.Partitures = new ObservableCollection<Partiture>();
+            var dataContext = partitureGridView;
+            CurrentCatalogue.Partitures.Add(partitureGridView.DataContext as Partiture);
+            dbContext.Entry(CurrentCatalogue).State = EntityState.Modified;
+            dbContext.SaveChanges();
+            Partitures = CurrentCatalogue.Partitures;
         }
     }
 }
