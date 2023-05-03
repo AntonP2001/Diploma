@@ -3,20 +3,140 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        xmlns:local="clr-namespace:DiplomaApp"
+        xmlns:i="http://schemas.microsoft.com/xaml/behaviors"
+        xmlns:local="clr-namespace:DiplomaUI"
+        xmlns:uc="clr-namespace:DiplomaUI"
+        xmlns:conv="clr-namespace:DiplomaCL.Converters;assembly=DiplomaCL"
         mc:Ignorable="d"
-        Title="MainWindow" Height="470" Width="850" Closing="OnMainWindowClosing" ResizeMode="CanMinimize">
+        Title="MainWindow" Height="800" Width="1420" Background="#FFF3F3F3" Initialized="OnWindowInit">
+    <Window.Resources>
+        <conv:IsEnabledConverter x:Key="IsEnabledConv"/>
+        <conv:ByteArrayToBitmapImageConverter x:Key="byteToImageConverter"/>
+        <conv:FileLoadedConverter x:Key="FileLoadedConv"/>
+    </Window.Resources>
     <Grid>
-        <StackPanel VerticalAlignment="Bottom" HorizontalAlignment="Left" Width="620">
-            <Border BorderThickness="2" BorderBrush="Black" Margin="10 10 10 0">
-                <ScrollViewer Height="370" Visibility="Visible" VerticalAlignment="Top" VerticalScrollBarVisibility="Hidden">
-                    <StackPanel Name="partiturePanel" VerticalAlignment="Top"></StackPanel>
-                </ScrollViewer>
-            </Border>
-            <StackPanel Orientation="Horizontal" Margin="0 0 10 0" HorizontalAlignment="Right">
-                <Button Width="150" Height="30" Margin="5 10 5 5" Click="OnAddingRecordClick">Добавить запись</Button>
-            </StackPanel>
-        </StackPanel>
-        <Border BorderThickness="2" BorderBrush="Gray" Margin="10 10 10 5" VerticalAlignment="Stretch" HorizontalAlignment="Right" Width="200"></Border>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition/>
+            <ColumnDefinition Width="330" MaxWidth="400" MinWidth="200"/>
+        </Grid.ColumnDefinitions>
+        <GridSplitter Width="3" HorizontalAlignment="Right"/>
+        <Grid>
+            <Grid.RowDefinitions>
+                <RowDefinition></RowDefinition>
+                <RowDefinition Height="30"></RowDefinition>
+            </Grid.RowDefinitions>
+            <DockPanel>
+                <Border Margin="5 10" Background="#FFD6D6D6" BorderBrush="Black" BorderThickness="0" Visibility="{Binding ElementName=partitureGridView, Path=Visibility}">
+                    <Grid DataContext="{Binding Partiture}" x:Name="partitureGridView" DockPanel.Dock="Left" Width="300" Visibility="Collapsed" Margin="30" VerticalAlignment="Top">
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="Auto"/>
+                            <RowDefinition Height="Auto"/>
+                            <RowDefinition/>
+                        </Grid.RowDefinitions>
+                        <Grid>
+                            <Grid.Resources>
+                                <Style TargetType="{x:Type TextBox}">
+                                    <Setter Property="Margin" Value="5"/>
+                                    <Setter Property="FontSize" Value="14"/>
+                                </Style>
+                                <Style TargetType="{x:Type Label}">
+                                    <Setter Property="FontSize" Value="14"/>
+                                </Style>
+                            </Grid.Resources>
+                            <Grid.RowDefinitions>
+                                <RowDefinition></RowDefinition>
+                                <RowDefinition></RowDefinition>
+                                <RowDefinition></RowDefinition>
+                                <RowDefinition></RowDefinition>
+                                <RowDefinition></RowDefinition>
+                                <RowDefinition></RowDefinition>
+                                <RowDefinition></RowDefinition>
+                            </Grid.RowDefinitions>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition></ColumnDefinition>
+                                <ColumnDefinition></ColumnDefinition>
+                            </Grid.ColumnDefinitions>
+                            <Label>Наименование:</Label>
+                            <TextBox Grid.Column="1" Text="{Binding Path=Name}"></TextBox>
+                            <Label Grid.Row="1">Автор:</Label>
+                            <TextBox Grid.Row="1" Grid.Column="1" Text="{Binding Author}"></TextBox>
+                            <Label Grid.Row="2">Стиль произведения:</Label>
+                            <TextBox Grid.Row="2" Grid.Column="1" Text="{Binding Style}"></TextBox>
+                            <Label Grid.Row="3">Тип произведения:</Label>
+                            <TextBox Grid.Row="3" Grid.Column="1" Text="{Binding WorkType}"></TextBox>
+                            <Label Grid.Row="4">Для инструмента(-ов):</Label>
+                            <TextBox Grid.Row="4" Grid.Column="1" Text="{Binding Instrumentation}"></TextBox>
+                            <Label Grid.Row="5">Язык автора:</Label>
+                            <TextBox Grid.Row="5" Grid.Column="1" Text="{Binding Language}"></TextBox>
+                            <Label Grid.Row="6">Партитура:</Label>
+                            <Button Grid.Row="6" Grid.Column="1" Margin="5" FontSize="14" 
+                                    Content="{Binding File, Converter={StaticResource FileLoadedConv}}">
+                            </Button>
+                        </Grid>
+                        <Border Grid.Row="1" Background="White" BorderBrush="Black" BorderThickness="1"
+                                HorizontalAlignment="Stretch" Height="300" VerticalAlignment="Stretch" Margin="20 10">
+                            <Image Source="{Binding Image, Converter={StaticResource byteToImageConverter}}"/>
+                        </Border>
+                        <Button Grid.Row="2" VerticalAlignment="Bottom" Margin="10" Height="30" 
+                                Width="150" FontSize="14" Content="Подтвердить">
+                            <i:Interaction.Triggers>
+                                <i:EventTrigger EventName="Click">
+                                    <i:ChangePropertyAction TargetObject="{Binding ElementName=partitureGridView}" 
+                                                                PropertyName="Visibility" Value="Collapsed"/>
+                                </i:EventTrigger>
+                            </i:Interaction.Triggers>
+                        </Button>
+                    </Grid>
+                </Border>
+                <Border Background="White" DockPanel.Dock="Right" BorderThickness="2" BorderBrush="Black" Margin="10">
+                    <ScrollViewer Height="710" Visibility="Visible" VerticalAlignment="Top" VerticalScrollBarVisibility="Hidden">
+                        <ItemsControl Name="partituresList" ItemsSource="{Binding Partitures}">
+                            <ItemsControl.ItemsPanel>
+                                <ItemsPanelTemplate>
+                                    <WrapPanel></WrapPanel>
+                                </ItemsPanelTemplate>
+                            </ItemsControl.ItemsPanel>
+                            <ItemsControl.ItemTemplate>
+                                <DataTemplate>
+                                    <uc:PartitureViewForm></uc:PartitureViewForm>
+                                </DataTemplate>
+                            </ItemsControl.ItemTemplate>
+                        </ItemsControl>
+                    </ScrollViewer>
+                </Border>
+            </DockPanel>
+            <Button HorizontalAlignment="Right" Grid.Row="1" Width="150" Margin="5 0 5 5" Content="Добавить запись">
+                <i:Interaction.Triggers>
+                    <i:EventTrigger EventName="Click">
+                        <i:ChangePropertyAction PropertyName="Visibility" Value="Visible" TargetObject="{Binding ElementName=partitureGridView}"/>
+                    </i:EventTrigger>
+                </i:Interaction.Triggers>
+            </Button>
+        </Grid>
+        <Grid Margin="0 5 5 5" Grid.Column="1">
+            <Grid.RowDefinitions>
+                <RowDefinition/>
+                <RowDefinition Height="Auto"/>
+            </Grid.RowDefinitions>
+            <Grid.Resources></Grid.Resources>
+            <TreeView Name="catalogueTreeView" ItemsSource="{Binding Items}" SelectedItemChanged="OnTreeViewSelectedItemChanged">
+                <TreeView.ItemTemplate>
+                    <HierarchicalDataTemplate x:Name="catalogueTreeViewChilds" ItemsSource="{Binding Path=Catalogues}">
+                        <TextBlock Text="{Binding Path=Name}">
+                            <TextBlock.ContextMenu>
+                                <ContextMenu>
+                                    <MenuItem Header="Удалить каталог" Click="OnDeletingCatalogue" IsEnabled="{Binding Converter={StaticResource IsEnabledConv}}"/>
+                                </ContextMenu>
+                            </TextBlock.ContextMenu>
+                        </TextBlock>
+                    </HierarchicalDataTemplate>
+                </TreeView.ItemTemplate>
+            </TreeView>
+            <DockPanel Grid.Row="1" Margin="5">
+                <Label Content="Наименование каталога:"/>
+                <TextBox Name="catalogueName" Width="100" HorizontalAlignment="Left"></TextBox>
+                <Button Margin="5 0 0 0" IsEnabled="{Binding ElementName=catalogueName, Path=Text.Length}" Click="OnAddingCatalogue">Добавить</Button>
+            </DockPanel>
+        </Grid>
     </Grid>
 </Window>
