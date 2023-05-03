@@ -16,6 +16,9 @@ using DiplomaCL.Model;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Runtime.CompilerServices;
+using Microsoft.Win32;
+using System.IO;
+using Aspose.Pdf;
 
 namespace DiplomaUI
 {
@@ -133,6 +136,19 @@ namespace DiplomaUI
         private void OnTreeViewSelectedItemChanged(object sender, RoutedPropertyChangedEventArgs<object> e)
         {
             CurrentCatalogue = e.NewValue as Catalogue;
+            if(CurrentCatalogue.Password != null)
+            {
+                CataloguePasswordEnteringWindow window = new CataloguePasswordEnteringWindow();
+                window.DataContext = CurrentCatalogue;
+                var result = window.ShowDialog();
+                if (result == false)
+                    MessageBox.Show("Неверный пароль!", "");
+                else
+                {
+                    Partitures = CurrentCatalogue.Partitures;
+                    partituresList.ItemsSource = Partitures;
+                }
+            }
             Partitures = CurrentCatalogue.Partitures;
             partituresList.ItemsSource = Partitures;
         }
@@ -140,8 +156,10 @@ namespace DiplomaUI
         private void OnAddingCatalogue(object sender, RoutedEventArgs e)
         {
             Catalogue.Name = catalogueName.Text;
-            catalogueName.Text = null; 
-            if(CurrentCatalogue.Catalogues == null)
+            catalogueName.Text = null;
+            if (cataloguePassword.Text != "")
+                Catalogue.Password = cataloguePassword.Text;
+            if (CurrentCatalogue.Catalogues == null)
                 CurrentCatalogue.Catalogues = new ObservableCollection<Catalogue>();
             CurrentCatalogue.Catalogues.Add(Catalogue);
             dbContext.Entry(CurrentCatalogue).State = EntityState.Modified;
@@ -187,6 +205,70 @@ namespace DiplomaUI
                 e.Cancel = true;
             }
             Application.Current.Shutdown();
+        }
+
+        private async void OnLoadingFile(object sender, RoutedEventArgs e)
+        {
+            OpenFileDialog openFileDialog = new OpenFileDialog
+            {
+                Filter = "PDF-файл (*.pdf)|*.pdf",
+                FilterIndex = 1,
+                RestoreDirectory = true
+            };
+            if (openFileDialog.ShowDialog() == true)
+            {
+                var partiture = Partiture;
+                partiture.File = File.ReadAllBytes(openFileDialog.FileName);
+                await AsyncCreateFirstPagePDFImage(openFileDialog.FileName, partiture);
+            }
+        }
+
+        public async Task AsyncCreateFirstPagePDFImage(string filename, Partiture partiture)
+        {
+            Task.Run(() => CreateFirstPagePDFImage(filename, partiture));
+        }
+
+        public async Task CreateFirstPagePDFImage(string file, Partiture partiture)
+        {
+            Document document = new Document(file);
+            partiture.Image = document.Pages[1].AsByteArray(new Aspose.Pdf.Devices.Resolution(100));
+        }
+
+        private void OnAddingCatalogueButton(object sender, RoutedEventArgs e)
+        {
+            if (partitureGridView.Visibility == Visibility.Collapsed)
+                partitureGridView.Visibility = Visibility.Visible;
+            else
+                partitureGridView.Visibility = Visibility.Collapsed;
+        }
+
+        private void filterPanel_MouseMove(object sender, MouseEventArgs e)
+        {
+            if (partitureGridView.Visibility == Visibility.Visible)
+                filterPanel.Height = 85;
+            else
+                filterPanel.Height = 55;
+        }
+
+        private void filterPanel_MouseLeave(object sender, MouseEventArgs e)
+        {
+            filterPanel.Height = 10;
+        }
+
+        private void filterPanel_TextChanged(object sender, TextChangedEventArgs e)
+        {
+            var filteredPartitures = Partitures.ToList();
+
+            filteredPartitures = filteredPartitures
+                .FindAll(x => x.Name.ToLower().StartsWith(nameFilter.Text.ToLower()))
+                .FindAll(x => x.Author.ToLower().StartsWith(authorFilter.Text.ToLower()))
+                .FindAll(x => x.Style.ToLower().StartsWith(styleFilter.Text.ToLower()))
+                .FindAll(x => x.WorkType.ToLower().StartsWith(workTypeFilter.Text.ToLower()))
+                .FindAll(x => x.Instrumentation.ToLower().StartsWith(instrumentationFilter.Text.ToLower()))
+                .FindAll(x => x.Language.ToLower().StartsWith(languageFilter.Text.ToLower()));
+
+            var partitures = new ObservableCollection<Partiture>(filteredPartitures);
+            partituresList.ItemsSource = partitures;
         }
     }
 }
