@@ -19,6 +19,9 @@ using System.Runtime.CompilerServices;
 using Microsoft.Win32;
 using System.IO;
 using Aspose.Pdf;
+using System.Windows.Xps.Packaging;
+using System.IO.Packaging;
+using DiplomaCL.Converters;
 
 namespace DiplomaUI
 {
@@ -29,7 +32,18 @@ namespace DiplomaUI
     {
 
         #region Свойства
-          
+
+        private Document _doc;
+        public Document Doc
+        {
+            get => _doc;
+            set
+            {
+                _doc = value;
+                OnPropertyChanged();
+            }
+        }
+
         private Partiture _partiture;
         public Partiture Partiture
         {
@@ -104,19 +118,6 @@ namespace DiplomaUI
             InitializeComponent();
         }
 
-        private void OnMainWindowClosing(object sender, System.ComponentModel.CancelEventArgs e)
-        {
-            if (MessageBox.Show("Вы действительно хотите выйти?", "Завершить работу", MessageBoxButton.OKCancel, MessageBoxImage.None)
-                == MessageBoxResult.OK) Application.Current.Shutdown();
-            else e.Cancel = true;
-        }
-
-        private void OnAddingRecordClick(object sender, RoutedEventArgs e)
-        {
-            PartitureForm partitureForm = new PartitureForm();
-            if (partitureForm.ShowDialog() == true) MessageBox.Show("Запись добавлена!");
-        }
-
         private void OnWindowInit(object sender, EventArgs e)
         {
             var dbCatalogues = new ObservableCollection<Catalogue>(dbContext.Catalogues.Select(x => x)
@@ -135,22 +136,31 @@ namespace DiplomaUI
 
         private void OnTreeViewSelectedItemChanged(object sender, RoutedPropertyChangedEventArgs<object> e)
         {
-            CurrentCatalogue = e.NewValue as Catalogue;
-            if(CurrentCatalogue.Password != null)
+            var selectedCatalogue = e.NewValue as Catalogue;
+            if(selectedCatalogue.Password != null)
             {
                 CataloguePasswordEnteringWindow window = new CataloguePasswordEnteringWindow();
-                window.DataContext = CurrentCatalogue;
+                window.DataContext = selectedCatalogue;
                 var result = window.ShowDialog();
                 if (result == false)
+                {
                     MessageBox.Show("Неверный пароль!", "");
+                    if (e.OldValue != null)
+                        CurrentCatalogue = e.OldValue as Catalogue;
+                }
                 else
                 {
+                    CurrentCatalogue = selectedCatalogue;
                     Partitures = CurrentCatalogue.Partitures;
                     partituresList.ItemsSource = Partitures;
                 }
             }
-            Partitures = CurrentCatalogue.Partitures;
-            partituresList.ItemsSource = Partitures;
+            else
+            {
+                CurrentCatalogue = selectedCatalogue;
+                Partitures = selectedCatalogue.Partitures;
+                partituresList.ItemsSource = Partitures;
+            }
         }
 
         private void OnAddingCatalogue(object sender, RoutedEventArgs e)
@@ -183,7 +193,8 @@ namespace DiplomaUI
             if (CurrentCatalogue.Partitures == null)
                 CurrentCatalogue.Partitures = new ObservableCollection<Partiture>();
             var dataContext = partitureGridView;
-            CurrentCatalogue.Partitures.Add(partitureGridView.DataContext as Partiture);
+            if (!CurrentCatalogue.Partitures.Contains(partitureGridView.DataContext as Partiture))
+                CurrentCatalogue.Partitures.Add(partitureGridView.DataContext as Partiture);
             dbContext.Entry(CurrentCatalogue).State = EntityState.Modified;
             dbContext.SaveChanges();
             Partitures = CurrentCatalogue.Partitures;
@@ -191,20 +202,23 @@ namespace DiplomaUI
 
         private void PartitureViewForm_DeleteClick(object sender, RoutedEventArgs e)
         {
-            var partitureForm = sender as Control;
-            Partitures.Remove(partitureForm.DataContext as Partiture);
-            dbContext.Entry(partitureForm.DataContext as Partiture).State = EntityState.Deleted;
-            dbContext.SaveChanges();
+            var result = MessageBox.Show("Вы действительно хотите удалить партитуру?", "Удалить партитуру", MessageBoxButton.YesNo);
+            if(result == MessageBoxResult.Yes)
+            {
+                var partitureForm = sender as Control;
+                Partitures.Remove(partitureForm.DataContext as Partiture);
+                dbContext.Entry(partitureForm.DataContext as Partiture).State = EntityState.Deleted;
+                dbContext.SaveChanges();
+            }
         }
 
         private void OnWindowClosing(object sender, CancelEventArgs e)
         {
             var result = MessageBox.Show("Вы действительно хотите выйти?", "Выход", MessageBoxButton.YesNo);
             if (result != MessageBoxResult.Yes)
-            {
                 e.Cancel = true;
-            }
-            Application.Current.Shutdown();
+            else
+                Application.Current.Shutdown();
         }
 
         private async void OnLoadingFile(object sender, RoutedEventArgs e)
@@ -234,12 +248,17 @@ namespace DiplomaUI
             partiture.Image = document.Pages[1].AsByteArray(new Aspose.Pdf.Devices.Resolution(100));
         }
 
-        private void OnAddingCatalogueButton(object sender, RoutedEventArgs e)
+        private void OnAddingPartitureButton(object sender, RoutedEventArgs e)
         {
+            Partiture = new Partiture();
+            partitureGridView.DataContext = Partiture;
             if (partitureGridView.Visibility == Visibility.Collapsed)
                 partitureGridView.Visibility = Visibility.Visible;
             else
+            {
                 partitureGridView.Visibility = Visibility.Collapsed;
+                Partiture = new Partiture();
+            }
         }
 
         private void filterPanel_MouseMove(object sender, MouseEventArgs e)
@@ -260,15 +279,49 @@ namespace DiplomaUI
             var filteredPartitures = Partitures.ToList();
 
             filteredPartitures = filteredPartitures
-                .FindAll(x => x.Name.ToLower().StartsWith(nameFilter.Text.ToLower()))
-                .FindAll(x => x.Author.ToLower().StartsWith(authorFilter.Text.ToLower()))
-                .FindAll(x => x.Style.ToLower().StartsWith(styleFilter.Text.ToLower()))
-                .FindAll(x => x.WorkType.ToLower().StartsWith(workTypeFilter.Text.ToLower()))
+                .FindAll(x => x.Name.ToLower().StartsWith(nameFilter.Text.Trim(' ').ToLower()))
+                .FindAll(x => x.Author.ToLower().StartsWith(authorFilter.Text.Trim(' ').ToLower()))
+                .FindAll(x => x.Style.ToLower().StartsWith(styleFilter.Text.Trim(' ').ToLower()))
+                .FindAll(x => x.WorkType.ToLower().StartsWith(workTypeFilter.Text.Trim(' ').ToLower()))
                 .FindAll(x => x.Instrumentation.ToLower().StartsWith(instrumentationFilter.Text.ToLower()))
-                .FindAll(x => x.Language.ToLower().StartsWith(languageFilter.Text.ToLower()));
+                .FindAll(x => x.Language.ToLower().StartsWith(languageFilter.Text.Trim(' ').ToLower()));
 
             var partitures = new ObservableCollection<Partiture>(filteredPartitures);
             partituresList.ItemsSource = partitures;
+        }
+
+        private void PartitureViewForm_EditClick(object sender, RoutedEventArgs e)
+        {
+            var senderObj = sender as Control;
+            Partiture = senderObj.DataContext as Partiture;
+            partitureGridView.DataContext = Partiture;
+            partitureGridView.Visibility = Visibility.Visible;
+        }
+
+        private void PartitureViewForm_AboutClick(object sender, RoutedEventArgs e)
+        {
+            var senderObj = sender as Control;
+            Partiture = senderObj.DataContext as Partiture;
+            tabControl.DataContext = Partiture; 
+            tabControl.SelectedIndex = 1;
+            using (MemoryStream xpsStream = new MemoryStream(Partiture.File))
+                using(Document doc = new Document(xpsStream))
+                    doc.Save("XPSOutput.xps", new XpsSaveOptions());
+            using (XpsDocument doc = new XpsDocument("XPSOutput.xps", FileAccess.ReadWrite))
+                docViewer.Document = doc.GetFixedDocumentSequence();
+        }
+
+        private void BackClick(object sender, RoutedEventArgs e)
+        {
+            docViewer.Document = null;
+            Partiture = new Partiture();
+            tabControl.SelectedIndex = 0;
+        }
+
+        private void TextBlock_PreviewMouseRightButtonDown(object sender, MouseButtonEventArgs e)
+        {
+            var catalogue = sender as TextBlock;
+            CurrentCatalogue = catalogue.DataContext as Catalogue;
         }
     }
 }

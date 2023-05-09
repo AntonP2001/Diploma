@@ -45,17 +45,14 @@ namespace DiplomaUI
             InitializeComponent();
         }
 
-        private void OnPartitureViewLoaded(object sender, RoutedEventArgs e)
-        {
-            var k = 0;
-        }
-
         private void delete_Click(object sender, RoutedEventArgs e)
         {
             OnDeleteClick();
         }
 
         #region RoutedEvent
+
+        #region DeleteClick
 
         public static readonly RoutedEvent DeleteClickEvent = EventManager.RegisterRoutedEvent(
             "DeleteClick", RoutingStrategy.Bubble, typeof(RoutedEventHandler), typeof(PartitureViewForm));
@@ -78,5 +75,62 @@ namespace DiplomaUI
 
         #endregion
 
+        #region EditClick
+
+        public static readonly RoutedEvent EditClickEvent = EventManager.RegisterRoutedEvent(
+            "EditClick", RoutingStrategy.Bubble, typeof(RoutedEventHandler), typeof(PartitureViewForm));
+
+        public event RoutedEventHandler EditClick
+        {
+            add { AddHandler(EditClickEvent, value); }
+            remove { RemoveHandler(EditClickEvent, value); }
+        }
+
+        void RaiseEditClickEvent()
+        {
+            RaiseEvent(new RoutedEventArgs(EditClickEvent));
+        }
+
+        public void OnEditClick()
+        {
+            RaiseEditClickEvent();
+        }
+
+        #endregion
+
+        #region AboutClick 
+
+        public static readonly RoutedEvent AboutClickEvent = EventManager.RegisterRoutedEvent(
+            "AboutClick", RoutingStrategy.Bubble, typeof(RoutedEventHandler), typeof(PartitureViewForm));
+        
+        public event RoutedEventHandler AboutClick
+        {
+            add { AddHandler(AboutClickEvent, value); }
+            remove { RemoveHandler(AboutClickEvent, value); }
+        }
+
+        public void RaiseAboutClickEvent()
+        {
+            RaiseEvent(new RoutedEventArgs(AboutClickEvent));
+        } 
+
+        public void OnAboutClick()
+        {
+            RaiseAboutClickEvent();
+        } 
+
+        #endregion
+
+        #endregion
+
+        private void edit_Click(object sender, RoutedEventArgs e)
+        {
+            OnEditClick();
+        }
+
+        private void about_Click(object sender, RoutedEventArgs e)
+        {
+            OnAboutClick();
+        }
     }
 }

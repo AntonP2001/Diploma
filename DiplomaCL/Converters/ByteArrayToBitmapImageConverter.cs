@@ -12,7 +12,7 @@ namespace DiplomaCL.Converters
 {
     public class ByteArrayToBitmapImageConverter : IValueConverter
     {
-        public BitmapImage ConvertByteArrayToBitMapImage(byte[] imageByteArray)
+        public static BitmapImage ConvertByteArrayToBitMapImage(byte[] imageByteArray)
         {
             BitmapImage img = new BitmapImage();
             using (MemoryStream memStream = new MemoryStream(imageByteArray))
@@ -31,7 +31,7 @@ namespace DiplomaCL.Converters
             BitmapImage img = new BitmapImage();
             if (value != null)
             {
-                img = this.ConvertByteArrayToBitMapImage(value as byte[]);
+                img = ConvertByteArrayToBitMapImage(value as byte[]);
             }
             return img;
         }

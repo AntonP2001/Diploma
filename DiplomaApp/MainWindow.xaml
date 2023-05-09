@@ -7,6 +7,7 @@
         xmlns:local="clr-namespace:DiplomaUI"
         xmlns:uc="clr-namespace:DiplomaUI"
         xmlns:conv="clr-namespace:DiplomaCL.Converters;assembly=DiplomaCL"
+        xmlns:icons="clr-namespace:Material.Icons;assembly=Material.Icons"
         mc:Ignorable="d"
         Title="MainWindow" Height="800" Width="1555" Background="#FFF3F3F3" Initialized="OnWindowInit" Closing="OnWindowClosing">
     <Window.Resources>
@@ -92,65 +93,151 @@
                         </Button>
                     </Grid>
                 </Border>
-                <Border Background="White" DockPanel.Dock="Right" BorderThickness="2" 
-                        BorderBrush="Black" Margin="10">
-                    <DockPanel>
-                        <DockPanel.Resources>
-                            <Style TargetType="DockPanel" x:Key="filterDPStyle">
-                                <Setter Property="Margin" Value="3"></Setter>
-                                <Setter Property="Height" Value="25"/>
+                <Border Background="White" DockPanel.Dock="Right" Width="Auto" BorderThickness="2" 
+                        BorderBrush="Black" Margin="10 10 5 10">
+                    <TabControl x:Name="tabControl">
+                        <TabControl.ItemContainerStyle>
+                            <Style>
+                                <Setter Property="UIElement.Visibility" Value="Collapsed"/>
                             </Style>
-                        </DockPanel.Resources>
-                        <Border x:Name="filterPanel" DockPanel.Dock="Top" Height="10" BorderBrush="Gray" 
+                        </TabControl.ItemContainerStyle>
+                        <TabItem Header="Партитуры">
+                            <DockPanel>
+                                <DockPanel.Resources>
+                                    <Style TargetType="DockPanel" x:Key="filterDPStyle">
+                                        <Setter Property="Margin" Value="3"></Setter>
+                                        <Setter Property="Height" Value="25"/>
+                                    </Style>
+                                </DockPanel.Resources>
+                                <Border x:Name="filterPanel" DockPanel.Dock="Top" Height="10" BorderBrush="Gray" 
                                 BorderThickness="1" Background="#FFEAEAEA"
                                 MouseMove="filterPanel_MouseMove" MouseLeave="filterPanel_MouseLeave" TextBoxBase.TextChanged="filterPanel_TextChanged" >
-                            <WrapPanel Margin="10">
-                                <DockPanel Width="180" Style="{StaticResource filterDPStyle}">
-                                    <Label Content="Наименование:" Margin="0 0 5 0"></Label>
-                                    <TextBox x:Name="nameFilter"></TextBox>
-                                </DockPanel>
-                                <DockPanel Width="170" Style="{StaticResource filterDPStyle}">
-                                    <Label Content="Автор:" Margin="0 0 5 0"></Label>
-                                    <TextBox x:Name="authorFilter"></TextBox>
-                                </DockPanel>
-                                <DockPanel Width="150" Style="{StaticResource filterDPStyle}">
-                                    <Label Content="Стиль:" Margin="0 0 5 0"></Label>
-                                    <TextBox x:Name="styleFilter"></TextBox>
-                                </DockPanel>
-                                <DockPanel Width="230" Style="{StaticResource filterDPStyle}">
-                                    <Label Content="Для инструмента(-ов):" Margin="0 0 5 0"></Label>
-                                    <TextBox x:Name="instrumentationFilter"></TextBox>
-                                </DockPanel>
-                                <DockPanel Width="230" Style="{StaticResource filterDPStyle}">
-                                    <Label Content="Тип произведения:" Margin="0 0 5 0"></Label>
-                                    <TextBox x:Name="workTypeFilter"></TextBox>
-                                </DockPanel>
-                                <DockPanel Width="155" Style="{StaticResource filterDPStyle}">
-                                    <Label Content="Язык:" Margin="0 0 5 0"></Label>
-                                    <TextBox x:Name="languageFilter"></TextBox>
-                                </DockPanel>
-                            </WrapPanel>
-                        </Border>
-                        <ScrollViewer Height="710" Visibility="Visible" VerticalAlignment="Top" VerticalScrollBarVisibility="Hidden">
-                            <ItemsControl Name="partituresList" ItemsSource="{Binding Partitures}">
-                                <ItemsControl.ItemsPanel>
-                                    <ItemsPanelTemplate>
-                                        <WrapPanel></WrapPanel>
-                                    </ItemsPanelTemplate>
-                                </ItemsControl.ItemsPanel>
-                                <ItemsControl.ItemTemplate >
-                                    <DataTemplate>
-                                        <uc:PartitureViewForm x:Name="partitureViewForm" DataContext="{Binding}"
-                                        DeleteClick="PartitureViewForm_DeleteClick"></uc:PartitureViewForm>
-                                    </DataTemplate>
-                                </ItemsControl.ItemTemplate>
-                            </ItemsControl>
-                        </ScrollViewer>
-                    </DockPanel>
+                                    <WrapPanel Margin="10">
+                                        <DockPanel Width="180" Style="{StaticResource filterDPStyle}">
+                                            <Label Content="Наименование:" Margin="0 0 5 0"></Label>
+                                            <TextBox x:Name="nameFilter"></TextBox>
+                                        </DockPanel>
+                                        <DockPanel Width="170" Style="{StaticResource filterDPStyle}">
+                                            <Label Content="Автор:" Margin="0 0 5 0"></Label>
+                                            <TextBox x:Name="authorFilter"></TextBox>
+                                        </DockPanel>
+                                        <DockPanel Width="150" Style="{StaticResource filterDPStyle}">
+                                            <Label Content="Стиль:" Margin="0 0 5 0"></Label>
+                                            <TextBox x:Name="styleFilter"></TextBox>
+                                        </DockPanel>
+                                        <DockPanel Width="230" Style="{StaticResource filterDPStyle}">
+                                            <Label Content="Для инструмента(-ов):" Margin="0 0 5 0"></Label>
+                                            <TextBox x:Name="instrumentationFilter"></TextBox>
+                                        </DockPanel>
+                                        <DockPanel Width="230" Style="{StaticResource filterDPStyle}">
+                                            <Label Content="Тип произведения:" Margin="0 0 5 0"></Label>
+                                            <TextBox x:Name="workTypeFilter"></TextBox>
+                                        </DockPanel>
+                                        <DockPanel Width="155" Style="{StaticResource filterDPStyle}">
+                                            <Label Content="Язык:" Margin="0 0 5 0"></Label>
+                                            <TextBox x:Name="languageFilter"></TextBox>
+                                        </DockPanel>
+                                    </WrapPanel>
+                                </Border>
+                                <ScrollViewer Height="710" Visibility="Visible" VerticalAlignment="Top" VerticalScrollBarVisibility="Hidden">
+                                    <ItemsControl Name="partituresList" ItemsSource="{Binding Partitures}">
+                                        <ItemsControl.ItemsPanel>
+                                            <ItemsPanelTemplate>
+                                                <WrapPanel></WrapPanel>
+                                            </ItemsPanelTemplate>
+                                        </ItemsControl.ItemsPanel>
+                                        <ItemsControl.ItemTemplate >
+                                            <DataTemplate>
+                                                <uc:PartitureViewForm x:Name="partitureViewForm" DataContext="{Binding}"
+                                                DeleteClick="PartitureViewForm_DeleteClick"
+                                                EditClick="PartitureViewForm_EditClick"
+                                                AboutClick="PartitureViewForm_AboutClick"></uc:PartitureViewForm>
+                                            </DataTemplate>
+                                        </ItemsControl.ItemTemplate>
+                                    </ItemsControl>
+                                </ScrollViewer>
+                            </DockPanel>
+                        </TabItem>
+                        <TabItem Header="Подробности">
+                            <Grid Margin="15" HorizontalAlignment="Center" 
+                              VerticalAlignment="Center" Width="750">
+                                <Grid.Resources>
+                                    <Style TargetType="Label">
+                                        <Setter Property="FontSize" Value="16"/>
+                                    </Style>
+                                    <Style TargetType="Button">
+                                        <Setter Property="FontSize" Value="16"/>
+                                        <Setter Property="Margin" Value="0 5 5 5"/>
+                                        <Setter Property="Padding" Value="5"/>
+                                    </Style>
+                                    <Style TargetType="TextBlock">
+                                        <Setter Property="TextAlignment" Value="Left" />
+                                        <Setter Property="FontSize" Value="16" />
+                                        <Setter Property="Width" Value="200" />
+                                        <Setter Property="TextWrapping" Value="Wrap" />
+                                        <Setter Property="TextTrimming" Value="CharacterEllipsis" />
+                                        <Setter Property="VerticalAlignment" Value="Center" />
+                                        <Setter Property="Height" Value="40" />
+                                    </Style>
+                                </Grid.Resources>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="350"/>
+                                    <ColumnDefinition Width="450"/>
+                                </Grid.ColumnDefinitions>
+                                <Grid VerticalAlignment="Center">
+                                    <Grid.RowDefinitions>
+                                        <RowDefinition Height="40"/>
+                                        <RowDefinition Height="40"/>
+                                        <RowDefinition Height="40"/>
+                                        <RowDefinition Height="40"/>
+                                        <RowDefinition Height="40"/>
+                                        <RowDefinition Height="40"/>
+                                        <RowDefinition Height="45"/>
+                                    </Grid.RowDefinitions>
+                                    <StackPanel Orientation="Horizontal">
+                                        <TextBlock Width="Auto">Наименование: </TextBlock>
+                                        <TextBlock Text="{Binding Name}"/>
+                                    </StackPanel>
+                                    <StackPanel Grid.Row="1" Orientation="Horizontal">
+                                        <TextBlock Width="Auto">Автор: </TextBlock>
+                                        <TextBlock Text="{Binding Author}"/>
+                                    </StackPanel>
+                                    <StackPanel Grid.Row="2" Orientation="Horizontal">
+                                        <TextBlock Width="Auto">Стиль: </TextBlock>
+                                        <TextBlock Text="{Binding Style}"/>
+                                    </StackPanel>
+                                    <StackPanel Grid.Row="3" Orientation="Horizontal">
+                                        <TextBlock Width="Auto">Тип прозведения: </TextBlock>
+                                        <TextBlock Text="{Binding WorkType}"/>
+                                    </StackPanel>
+                                    <StackPanel Grid.Row="4" Orientation="Horizontal">
+                                        <TextBlock Width="Auto">Для инструмента(-ов): </TextBlock>
+                                        <TextBlock Text="{Binding Instrumentation}"/>
+                                    </StackPanel>
+                                    <StackPanel Grid.Row="5" Orientation="Horizontal">
+                                        <TextBlock Width="Auto">Язык автора: </TextBlock>
+                                        <TextBlock Text="{Binding Language}"/>
+                                    </StackPanel>
+                                    <StackPanel Grid.Row="6" Orientation="Horizontal" Margin="5 0">
+                                        <Button Click="BackClick">Назад</Button>
+                                    </StackPanel>
+                                </Grid>
+                                <Grid Grid.Column="1">
+                                    <Grid.RowDefinitions>
+                                        <RowDefinition Height="550"/>
+                                    </Grid.RowDefinitions>
+                                    <Border Grid.Row="0" Background="White" BorderBrush="Black" BorderThickness="1"
+                                HorizontalAlignment="Stretch" VerticalAlignment="Stretch">
+                                        <DocumentViewer Name="docViewer"/>
+                                    </Border>
+                                </Grid>
+                            </Grid>
+                        </TabItem>
+                    </TabControl>
                 </Border>
             </DockPanel>
             <Button HorizontalAlignment="Right" Grid.Row="1" Width="150" Margin="5 0 5 5" 
-                    Content="Добавить запись" Click="OnAddingCatalogueButton"></Button>
+                    Content="Добавить запись" Click="OnAddingPartitureButton"></Button>
         </Grid>
         <Grid Margin="0 10 5 0" Grid.Column="1">
             <Grid.RowDefinitions>
@@ -161,13 +248,16 @@
             <TreeView Name="catalogueTreeView" ItemsSource="{Binding Items}" SelectedItemChanged="OnTreeViewSelectedItemChanged">
                 <TreeView.ItemTemplate>
                     <HierarchicalDataTemplate x:Name="catalogueTreeViewChilds" ItemsSource="{Binding Path=Catalogues}">
-                        <TextBlock Text="{Binding Path=Name}">
-                            <TextBlock.ContextMenu>
-                                <ContextMenu>
-                                    <MenuItem Header="Удалить каталог" Click="OnDeletingCatalogue" IsEnabled="{Binding Converter={StaticResource IsEnabledConv}}"/>
-                                </ContextMenu>
-                            </TextBlock.ContextMenu>
-                        </TextBlock>
+                        <StackPanel Orientation="Horizontal">
+                            <Image Width="16" Height="16" Source="folder-outline.png"/>
+                            <TextBlock Margin="3 0 0 0" Text="{Binding Path=Name}" PreviewMouseRightButtonDown="TextBlock_PreviewMouseRightButtonDown">
+                                <TextBlock.ContextMenu>
+                                    <ContextMenu>
+                                        <MenuItem Header="Удалить каталог" Click="OnDeletingCatalogue" IsEnabled="{Binding Converter={StaticResource IsEnabledConv}}"/>
+                                    </ContextMenu>
+                                </TextBlock.ContextMenu>
+                            </TextBlock>
+                        </StackPanel>
                     </HierarchicalDataTemplate>
                 </TreeView.ItemTemplate>
             </TreeView>
